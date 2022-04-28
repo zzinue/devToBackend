@@ -1,5 +1,6 @@
 const express = require('express');
 const post = require('../usecases/post');
+const { authHandler } = require('../middlewares/authHandlers');
 
 const router = express.Router();
 
@@ -39,18 +40,17 @@ router.post("/", async(req, res, next) => {
     }
 
 })
-router.put("/:id", async(req, res, next) => {
+router.patch("/:id", async(req, res, next) => {
     try {
-        const { id } = req.params
-        const { title, image, content, dateCreated, tags } = req.body
-        const postUpdated = await post.update(id, { title, image, content, dateCreated, tags })
+        const { id } = req.params;
+        const postUpdated = await post.patch(id, {...req.body });
         res.json({
-            sucess: true,
-            message: ` "Post ${id} updated"`,
+            success: true,
+            message: `post ${id} updated`,
             payload: postUpdated
         })
-    } catch (err) {
-        next(err)
+    } catch (error) {
+        next(error)
     }
 })
 router.delete("/:id", async(req, res, next) => {

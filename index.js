@@ -5,6 +5,8 @@ const { logErrors, errorHandler } = require('./src/middlewares/errorHandler');
 const db = require('./src/lib/db');
 const config = require('./src/lib/config');
 const port = config.app.port
+const cors = require('cors');
+app.use(cors());
 
 app.use(express.json()); //middleware
 

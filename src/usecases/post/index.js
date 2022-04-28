@@ -18,11 +18,11 @@ const create = async(postData) => {
     })
     return await newPost.save()
 }
-const update = async(id, postData) => {
-    const { title, image, content, dateCreated, tags } = postData
-    const updatedPost = await Post.findOneAndUpdate(id, { title, image, content, dateCreated, tags }, { new: true }).exec()
-    return updatedPost
+
+const patch = async(id, postData) => {
+    return await Post.findByIdAndUpdate(id, {...postData }, { new: true }).exec()
 }
+
 const del = async(id) => {
     return await Post.findByIdAndDelete(id).exec()
 }
@@ -30,7 +30,7 @@ const del = async(id) => {
 module.exports = {
     getAll,
     create,
-    update,
+    patch,
     del,
     getById
 }

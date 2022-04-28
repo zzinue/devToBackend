@@ -5,11 +5,14 @@ const encrypt = require('../../lib/encrypt');
 const getAll = async() => {
     return await User.find({}).exec();
 }
+const getByEmail = async(email) => {
+    return await User.findOne({ email }).exec()
+}
 
-/* const authenticate = async(user, password) => {
+const authenticate = async(user, password) => {
     const hash = user.password
     return await encrypt.veryfyPassword(password, hash)
-} */
+}
 const create = async(firstName, lastName, email, password) => {
     const hash = await encrypt.hashPassword(password);
     const newUser = new User({
@@ -28,7 +31,9 @@ const update = async(id, userData) => {
 module.exports = {
     getAll,
     create,
-    update
+    update,
+    authenticate,
+    getByEmail
 
 
 }
