@@ -6,6 +6,7 @@ const schema = new Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true, index: true },
     password: { type: String, required: true },
+    role: { String }
 })
 module.exports = {
     schema,
